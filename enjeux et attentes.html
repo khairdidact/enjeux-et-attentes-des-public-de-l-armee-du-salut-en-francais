@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Formateur de français : outil besoin & situation sociale</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(145deg, #f0f7ff 0%, #e9eef4 100%);
+            font-family: 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            padding: 2rem 1.5rem;
+            color: #1a2c3e;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        /* en-tête */
+        .header {
+            text-align: center;
+            margin-bottom: 2.5rem;
+        }
+
+        .header h1 {
+            font-size: 2.1rem;
+            background: linear-gradient(135deg, #1f4e6e, #2c7a4d);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            letter-spacing: -0.3px;
+        }
+
+        .header p {
+            color: #2c5368;
+            margin-top: 0.5rem;
+            font-weight: 500;
+        }
+
+        /* panneau des boutons */
+        .selection-panel {
+            background: rgba(255,255,255,0.7);
+            backdrop-filter: blur(2px);
+            border-radius: 2rem;
+            padding: 1.5rem 1.8rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 12px 24px rgba(0,0,0,0.05);
+            border: 1px solid rgba(255,255,255,0.8);
+        }
+
+        .flex-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            justify-content: center;
+        }
+
+        .group {
+            flex: 1;
+            min-width: 240px;
+            background: white;
+            border-radius: 1.5rem;
+            padding: 1rem 1.2rem 1.3rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+            transition: all 0.2s;
+        }
+
+        .group h3 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 0.9rem;
+            border-left: 5px solid;
+            padding-left: 12px;
+        }
+
+        .group:nth-child(1) h3 { border-left-color: #2c7a4d; color: #1f543b; }
+        .group:nth-child(2) h3 { border-left-color: #cd5c5c; color: #a13e3e; }
+
+        .btn-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.7rem;
+        }
+
+        .btn-option {
+            background: #f2f5f9;
+            border: none;
+            padding: 0.6rem 1.2rem;
+            border-radius: 40px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            color: #1f3b4a;
+            font-family: inherit;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+        }
+
+        .btn-option:hover {
+            background: #e2e8f2;
+            transform: translateY(-2px);
+        }
+
+        .btn-option.active {
+            background: #1f6e43;
+            color: white;
+            box-shadow: 0 6px 12px rgba(31,110,67,0.2);
+            border: none;
+        }
+
+        .besoin-active {
+            background: #1f6e43 !important;
+            color: white;
+        }
+
+        .social-active {
+            background: #b3413a !important;
+            color: white;
+        }
+
+        /* zone de texte fiche */
+        .fiche-section {
+            background: white;
+            border-radius: 2rem;
+            box-shadow: 0 20px 35px -12px rgba(0,0,0,0.2);
+            overflow: hidden;
+            transition: all 0.2s;
+        }
+
+        .fiche-header {
+            background: #1e2f3c;
+            padding: 1rem 2rem;
+            color: white;
+        }
+
+        .fiche-header h2 {
+            font-size: 1.4rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+
+        .badge-combi {
+            background: #ffb347;
+            color: #2c2c2c;
+            border-radius: 40px;
+            font-size: 0.75rem;
+            padding: 0.2rem 0.8rem;
+            font-weight: 600;
+            margin-left: 0.8rem;
+        }
+
+        .zone-texte {
+            padding: 2rem 2rem;
+            background: #fefef7;
+            min-height: 480px;
+        }
+
+        .contenu-fiche {
+            font-size: 1rem;
+            line-height: 1.55;
+            color: #1e2f3c;
+            white-space: pre-wrap;
+            font-family: 'Segoe UI', system-ui;
+        }
+
+        .contenu-fiche strong {
+            color: #1f6e43;
+        }
+
+        .contenu-fiche em {
+            background: #f9f1d9;
+            font-style: normal;
+            padding: 0.1rem 0.2rem;
+            border-radius: 8px;
+        }
+
+        .footer-note {
+            text-align: center;
+            margin-top: 2rem;
+            font-size: 0.8rem;
+            color: #4d6272;
+            border-top: 1px solid #cddfe7;
+            padding-top: 1.5rem;
+        }
+
+        @media (max-width: 750px) {
+            body {
+                padding: 1rem;
+            }
+            .zone-texte {
+                padding: 1.5rem;
+            }
+            .btn-option {
+                padding: 0.5rem 1rem;
+                font-size: 0.8rem;
+            }
+        }
+
+        button {
+            user-select: none;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <h1>📘 Formateur de français · Boîte à outils</h1>
+        <p>Associez un besoin pédagogique à une situation sociale — découvrez les enjeux et les attentes spécifiques</p>
+    </div>
+
+    <div class="selection-panel">
+        <div class="flex-buttons">
+            <!-- Colonne besoin pédagogique -->
+            <div class="group">
+                <h3>🎯 Besoin pédagogique</h3>
+                <div class="btn-container" id="besoin-group">
+                    <button data-besoin="alphabetisation" class="btn-option">📖 Alphabétisation</button>
+                    <button data-besoin="fle" class="btn-option">🌍 FLE (Français Langue Étrangère)</button>
+                    <button data-besoin="illettrisme" class="btn-option">📝 Illettrisme</button>
+                </div>
+            </div>
+
+            <!-- Colonne situation sociale -->
+            <div class="group">
+                <h3>🧑‍🤝‍🧑 Situation sociale</h3>
+                <div class="btn-container" id="social-group">
+                    <button data-social="exile_migrant" class="btn-option">🧳 Exilé ou migrant</button>
+                    <button data-social="grande_precarite" class="btn-option">⚠️ Grande précarité</button>
+                    <button data-social="enfant_jeune_difficulte" class="btn-option">🧸 Enfant ou jeune en difficulté</button>
+                    <button data-social="personne_agee_handicap" class="btn-option">👵 Personne âgée ou handicapée</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- zone d'affichage de la fiche complète -->
+    <div class="fiche-section">
+        <div class="fiche-header">
+            <h2>
+                📋 Fiche pédagogique
+                <span id="combo-badge" class="badge-combi">combinaison active</span>
+            </h2>
+        </div>
+        <div class="zone-texte">
+            <div id="dynamic-content" class="contenu-fiche">
+                <!-- Le contenu dynamique sera injecté ici (JS) -->
+                <p style="opacity:0.7;">Sélectionnez un besoin pédagogique et une situation sociale pour générer la fiche personnalisée.</p>
+            </div>
+        </div>
+    </div>
+    <div class="footer-note">
+        ✨ 12 combinaisons uniques — Enjeux & attentes pour l’accompagnement en français.
+    </div>
+</div>
+
+<script>
+    // ---------- DONNÉES : 12 combinaisons complètes ----------
+    // Structure : besoin -> social -> objet { enjeux, attentes }
+    const contenusFiches = {
+        alphabetisation: {
+            exile_migrant: {
+                enjeux: "L’apprenant·e exilé·e ou migrant·e doit souvent acquérir les bases de la lecture/écriture dans une langue seconde, avec un vécu traumatique possible et un besoin urgent de repères scripturaux (signes, codes administratifs).",
+                attentes: "Le formateur adopte une approche très progressive, multisensorielle, valorise l’oral en amont, utilise des supports concrets (documents officiels simplifiés, pictogrammes). Accompagnement psychosocial à considérer."
+            },
+            grande_precarite: {
+                enjeux: "Précarité matérielle, absentéisme potentiel, fatigue, difficulté d’accès aux ressources. L’alphabétisation devient un levier pour accéder aux droits, à l’emploi et à l’autonomie quotidienne.",
+                attentes: "Souplesse horaire, lieux adaptés, ateliers courts et concrets (remplir un formulaire, lire des horaires). Bienveillance, non-jugement, liens avec les travailleurs sociaux."
+            },
+            enfant_jeune_difficulte: {
+                enjeux: "Jeunes en rupture scolaire ou avec des troubles d’apprentissage, faible confiance en soi. L’entrée dans l’écrit peut générer de l’anxiété.",
+                attentes: "Formateur ludique, rassurant, jeux de lettres, ateliers créatifs, valorisation des micro-progrès. Travail avec les familles et partenaires éducatifs."
+            },
+            personne_agee_handicap: {
+                enjeux: "Déficits cognitifs, moteurs ou sensoriels possibles. Mémoire de travail réduite, besoin d’adaptations physiques (gros caractères, rythme lent).",
+                attentes: "Patience extrême, matériel adapté, répétitions, ancrage dans la vie quotidienne (listes, recettes, consignes médicales). Créer un climat sécurisant."
+            }
+        },
+        fle: {
+            exile_migrant: {
+                enjeux: "Apprentissage du français comme langue étrangère dans un contexte migratoire, souvent en urgence communicative (travail, santé, démarches). Choc linguistique et culturel.",
+                attentes: "Formateur compétent en FLE, posture interculturelle, focus sur l’oral en situation réelle, documents authentiques, favoriser l’autonomie langagière et l’inclusion."
+            },
+            grande_precarite: {
+                enjeux: "Ressources limitées, difficultés à se projeter, accent sur la survie langagière. Manque d’accès au numérique ou à du matériel pédagogique.",
+                attentes: "Ateliers gratuits, supports photocopiés, apprendre à se débrouiller dans les lieux d’aide alimentaire, médicale, administrative. Rythme flexible."
+            },
+            enfant_jeune_difficulte: {
+                enjeux: "Allophones en décrochage scolaire, parfois non scolarisés antérieurement. Nécessité de réconcilier avec l’école et les apprentissages formels.",
+                attentes: "Approche actionnelle, projets motivants (créer un journal, chanter), étayage renforcé, collaboration avec enseignants spécialisés et familles."
+            },
+            personne_agee_handicap: {
+                enjeux: "Maintien du lien social, déficits auditifs/visuels, lenteur cognitive, mais grande volonté d’apprendre pour ne pas s’isoler.",
+                attentes: "Pédagogie lente, voix claire, visuels contrastés, répétitions fréquentes, sujets de conversation liés à la mémoire, aux souvenirs, loisirs accessibles."
+            }
+        },
+        illettrisme: {
+            exile_migrant: {
+                enjeux: "Personne ayant été scolarisée dans son pays mais non lectrice en français, difficultés de transfert des compétences. Frustration et honte possibles.",
+                attentes: "Déconstruction des blocages, remobilisation des savoirs antérieurs, stratégies de mémorisation visuelle, travail sur la déchiffrage en contexte concret."
+            },
+            grande_precarite: {
+                enjeux: "Illettrisme souvent associé à un parcours chaotique, faible estime de soi. L’urgence sociale prime sur l’apprentissage formel.",
+                attentes: "Liens directs avec l’insertion professionnelle, ateliers ‘savoir-faire du quotidien’ (lire une facture, écrire un message), valorisation de l’expérience."
+            },
+            enfant_jeune_difficulte: {
+                enjeux: "Sortis du système sans maîtriser la lecture/écriture, cumul de fragilités. Risque d’exclusion précoce.",
+                attentes: "Remédiation intensive mais bienveillante, approche phonologique et syllabique, tutorat individuel, travail sur la confiance et l’envie d’apprendre."
+            },
+            personne_agee_handicap: {
+                enjeux: "Non-lecture malgré une scolarisation ancienne, parfois liée à des troubles cognitifs légers ou à l’âge. Honte et repli.",
+                attentes: "Rythme très modulable, supports mnémotechniques, exercices très contextualisés (médicaments, consignes de sécurité), empathie et respect du rythme."
+            }
+        }
+    };
+
+    // État actuel de la sélection
+    let besoinActuel = "alphabetisation";      // valeur par défaut
+    let socialActuel = "exile_migrant";        // valeur par défaut
+
+    // Éléments DOM
+    const besoinBtns = document.querySelectorAll('[data-besoin]');
+    const socialBtns = document.querySelectorAll('[data-social]');
+    const dynamicDiv = document.getElementById('dynamic-content');
+    const comboBadge = document.getElementById('combo-badge');
+
+    // Fonction pour mettre à jour l'affichage des boutons actifs
+    function updateActiveButtons() {
+        besoinBtns.forEach(btn => {
+            if(btn.dataset.besoin === besoinActuel) {
+                btn.classList.add('active');
+            } else {
+                btn.classList.remove('active');
+            }
+        });
+        socialBtns.forEach(btn => {
+            if(btn.dataset.social === socialActuel) {
+                btn.classList.add('active');
+            } else {
+                btn.classList.remove('active');
+            }
+        });
+    }
+
+    // Fonction pour générer le texte de la fiche (enjeux & attentes)
+    function genererFiche() {
+        // Récupérer les données selon les clés (besoin, social)
+        const besoinData = contenusFiches[besoinActuel];
+        if (!besoinData) {
+            dynamicDiv.innerHTML = `<p>⚠️ Données manquantes pour le besoin sélectionné.</p>`;
+            return;
+        }
+        const ficheSociale = besoinData[socialActuel];
+        if (!ficheSociale) {
+            dynamicDiv.innerHTML = `<p>⚠️ Combinaison "${besoinActuel} / ${socialActuel}" non disponible dans la base (vérifier).</p>`;
+            return;
+        }
+
+        // Transformation des libellés pour affichage plus humain
+        const libelleBesoin = {
+            alphabetisation: "Alphabétisation",
+            fle: "Français Langue Étrangère (FLE)",
+            illettrisme: "Illettrisme"
+        }[besoinActuel] || besoinActuel;
+
+        const libelleSocial = {
+            exile_migrant: "Exilé·e ou migrant·e",
+            grande_precarite: "Personne en grande précarité",
+            enfant_jeune_difficulte: "Enfant ou jeune en difficulté",
+            personne_agee_handicap: "Personne âgée ou handicapée"
+        }[socialActuel] || socialActuel;
+
+        // Construction HTML lisible
+        const htmlContent = `
+            <div style="margin-bottom: 1.5rem;">
+                <div style="background: #eef2f0; border-radius: 1rem; padding: 0.8rem 1.2rem; margin-bottom: 1.5rem;">
+                    <span style="font-weight:700;">🧑‍🏫 Contexte :</span> 
+                    <strong>${libelleBesoin}</strong> · 
+                    <strong>${libelleSocial}</strong>
+                </div>
+                <div style="margin-bottom: 1.8rem;">
+                    <h3 style="font-size:1.3rem; margin-bottom: 0.5rem; color:#1f6e43;">🎯 Enjeux principaux</h3>
+                    <p style="background: #faf9f2; padding: 1rem; border-radius: 1.2rem; border-left: 5px solid #2c7a4d;">${ficheSociale.enjeux}</p>
+                </div>
+                <div>
+                    <h3 style="font-size:1.3rem; margin-bottom: 0.5rem; color:#b3413a;">✨ Attentes pour le formateur</h3>
+                    <p style="background: #fef7e0; padding: 1rem; border-radius: 1.2rem; border-left: 5px solid #cd5c5c;">${ficheSociale.attentes}</p>
+                </div>
+                <div style="margin-top: 1.8rem; font-size:0.85rem; background: #eef3fc; padding: 0.7rem; border-radius: 1rem; text-align:center;">
+                    💡 <em>Adapter posture, supports et rythme selon la vulnérabilité et les objectifs de l'apprenant.</em>
+                </div>
+            </div>
+        `;
+
+        dynamicDiv.innerHTML = htmlContent;
+
+        // Mise à jour du badge
+        let besoinCourt = "";
+        if (besoinActuel === "alphabetisation") besoinCourt = "Alphab.";
+        else if (besoinActuel === "fle") besoinCourt = "FLE";
+        else besoinCourt = "Illettr.";
+        let socialCourt = "";
+        if (socialActuel === "exile_migrant") socialCourt = "Exilé/migrant";
+        else if (socialActuel === "grande_precarite") socialCourt = "Précarité";
+        else if (socialActuel === "enfant_jeune_difficulte") socialCourt = "Jeune en diff.";
+        else socialCourt = "Âgé/handicap";
+        comboBadge.textContent = `${besoinCourt} · ${socialCourt}`;
+    }
+
+    // Gestionnaires d'événements pour les besoins
+    besoinBtns.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            const nouvelleValeur = btn.dataset.besoin;
+            if (nouvelleValeur && contenusFiches[nouvelleValeur]) {
+                besoinActuel = nouvelleValeur;
+                updateActiveButtons();
+                genererFiche();
+            } else {
+                console.warn("Besoin inconnu", nouvelleValeur);
+            }
+        });
+    });
+
+    // Gestionnaires pour les situations sociales
+    socialBtns.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            const nouvelleSocial = btn.dataset.social;
+            // Vérification rapide : on regarde si la combinaison existe dans le besoin actuel
+            if (nouvelleSocial && contenusFiches[besoinActuel] && contenusFiches[besoinActuel][nouvelleSocial]) {
+                socialActuel = nouvelleSocial;
+                updateActiveButtons();
+                genererFiche();
+            } else {
+                // Cas improbable car toutes les combinaisons existent (4x3=12)
+                // mais si jamais on veut prévenir
+                if(contenusFiches[besoinActuel] && !contenusFiches[besoinActuel][nouvelleSocial]) {
+                    console.error("Combinaison manquante", besoinActuel, nouvelleSocial);
+                    // on force un fallback en définissant une social par défaut existante
+                    const socialsExist = Object.keys(contenusFiches[besoinActuel]);
+                    if(socialsExist.length > 0) {
+                        socialActuel = socialsExist[0];
+                        updateActiveButtons();
+                        genererFiche();
+                    }
+                } else {
+                    socialActuel = nouvelleSocial;
+                    updateActiveButtons();
+                    genererFiche();
+                }
+            }
+        });
+    });
+
+    // Initialisation : définir les valeurs par défaut et afficher la première fiche complète
+    function initialiser() {
+        // Vérifier que la combinaison par défaut existe (oui)
+        besoinActuel = "alphabetisation";
+        socialActuel = "exile_migrant";
+        updateActiveButtons();
+        genererFiche();
+    }
+
+    initialiser();
+</script>
+</body>
+</html>
