@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Formateur de français – Fiches besoins & situations sociales</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #f2f5f9;
+            font-family: 'Segoe UI', 'Roboto', system-ui, -apple-system, 'Helvetica Neue', sans-serif;
+            padding: 1.8rem 1.2rem;
+            color: #1a2c3e;
+            line-height: 1.45;
+        }
+
+        .container {
+            max-width: 1300px;
+            margin: 0 auto;
+        }
+
+        /* en-tête plus compact */
+        .header {
+            text-align: center;
+            margin-bottom: 1.8rem;
+        }
+
+        .header h1 {
+            font-size: 2rem;
+            background: linear-gradient(135deg, #1a5d3c, #1f6e8c);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            letter-spacing: -0.2px;
+            font-weight: 700;
+        }
+
+        .header p {
+            font-size: 1rem;
+            color: #2c5368;
+            margin-top: 0.3rem;
+            font-weight: 500;
+        }
+
+        /* panneau des boutons - plus dense */
+        .selection-panel {
+            background: white;
+            border-radius: 1.5rem;
+            padding: 1.2rem 1.5rem;
+            margin-bottom: 1.8rem;
+            box-shadow: 0 6px 14px rgba(0, 0, 0, 0.03);
+            border: 1px solid #e2edf2;
+        }
+
+        .flex-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            justify-content: center;
+        }
+
+        .group {
+            flex: 1;
+            min-width: 240px;
+            background: #fefefe;
+            border-radius: 1.2rem;
+            padding: 0.8rem 1rem 1rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+        }
+
+        .group h3 {
+            font-size: 1.25rem;
+            font-weight: 650;
+            margin-bottom: 0.8rem;
+            border-left: 4px solid;
+            padding-left: 10px;
+        }
+
+        .group:nth-child(1) h3 { border-left-color: #2c7a4d; color: #1f543b; }
+        .group:nth-child(2) h3 { border-left-color: #cd5c5c; color: #a13e3e; }
+
+        .btn-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.6rem;
+        }
+
+        .btn-option {
+            background: #edf2f7;
+            border: none;
+            padding: 0.65rem 1.1rem;
+            border-radius: 40px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            color: #1e3b4a;
+            font-family: inherit;
+        }
+
+        .btn-option:hover {
+            background: #dee5ef;
+            transform: translateY(-1px);
+        }
+
+        .btn-option.active {
+            background: #1f6e43;
+            color: white;
+            box-shadow: 0 3px 8px rgba(31,110,67,0.25);
+        }
+
+        .social-active {
+            background: #b3413a !important;
+            color: white;
+        }
+
+        /* Zone fiche : typographie plus grande, alignement resserré */
+        .fiche-section {
+            background: white;
+            border-radius: 1.5rem;
+            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+        }
+
+        .fiche-header {
+            background: #1e2f3c;
+            padding: 0.9rem 1.8rem;
+            color: white;
+        }
+
+        .fiche-header h2 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            flex-wrap: wrap;
+        }
+
+        .badge-combi {
+            background: #ffb347;
+            color: #1e2f2c;
+            border-radius: 40px;
+            font-size: 0.85rem;
+            padding: 0.2rem 1rem;
+            font-weight: 700;
+        }
+
+        .zone-texte {
+            padding: 1.6rem 1.8rem;
+            background: #ffffff;
+        }
+
+        /* TEXTE PRINCIPAL : plus gros et interlignes resserrées */
+        .contenu-fiche {
+            font-size: 1.05rem;
+            line-height: 1.45;
+            color: #1e2f3c;
+        }
+
+        .contenu-fiche h3 {
+            font-size: 1.35rem;
+            font-weight: 700;
+            margin: 1rem 0 0.4rem 0;
+            letter-spacing: -0.2px;
+        }
+
+        .contenu-fiche h3:first-of-type {
+            margin-top: 0;
+        }
+
+        .contenu-fiche p {
+            margin-bottom: 1rem;
+        }
+
+        .contenu-fiche strong {
+            color: #1f6e43;
+        }
+
+        .contenu-fiche em {
+            background: #fef2dd;
+            font-style: normal;
+            padding: 0.1rem 0.2rem;
+            border-radius: 6px;
+        }
+
+        .bloc-context {
+            background: #eef3f0;
+            border-radius: 1rem;
+            padding: 0.7rem 1rem;
+            margin-bottom: 1.2rem;
+            font-size: 1rem;
+            border-left: 4px solid #2c7a4d;
+        }
+
+        .enjeux-box, .attentes-box {
+            padding: 0.8rem 1rem;
+            border-radius: 1rem;
+            margin-bottom: 1.2rem;
+        }
+
+        .enjeux-box {
+            background: #faf9f2;
+            border-left: 5px solid #2c7a4d;
+        }
+
+        .attentes-box {
+            background: #fef7e0;
+            border-left: 5px solid #cd5c5c;
+        }
+
+        .sous-titre {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 0.4rem;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .liste-perso {
+            padding-left: 1.2rem;
+            margin: 0.5rem 0 0.8rem 0;
+            list-style-type: square;
+        }
+
+        .liste-perso li {
+            margin-bottom: 0.35rem;
+        }
+
+        .footer-note {
+            text-align: center;
+            margin-top: 1.8rem;
+            font-size: 0.85rem;
+            color: #4f6f7f;
+            border-top: 1px solid #d4e2ea;
+            padding-top: 1.2rem;
+        }
+
+        @media (max-width: 700px) {
+            body {
+                padding: 1rem;
+            }
+            .zone-texte {
+                padding: 1.2rem;
+            }
+            .contenu-fiche {
+                font-size: 1rem;
+            }
+            .fiche-header h2 {
+                font-size: 1.3rem;
+            }
+            .btn-option {
+                padding: 0.5rem 0.9rem;
+                font-size: 0.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <h1>📘 Français & accompagnement social</h1>
+        <p>Choisissez un besoin pédagogique + une situation sociale → fiche détaillée pour le formateur</p>
+    </div>
+
+    <div class="selection-panel">
+        <div class="flex-buttons">
+            <div class="group">
+                <h3>🎯 Besoin pédagogique</h3>
+                <div class="btn-container" id="besoin-group">
+                    <button data-besoin="alphabetisation" class="btn-option">📖 Alphabétisation</button>
+                    <button data-besoin="fle" class="btn-option">🌍 FLE</button>
+                    <button data-besoin="illettrisme" class="btn-option">📝 Illettrisme</button>
+                </div>
+            </div>
+            <div class="group">
+                <h3>🧑‍🤝‍🧑 Situation sociale</h3>
+                <div class="btn-container" id="social-group">
+                    <button data-social="exile_migrant" class="btn-option">🧳 Exilé ou migrant</button>
+                    <button data-social="grande_precarite" class="btn-option">⚠️ Grande précarité</button>
+                    <button data-social="enfant_jeune_difficulte" class="btn-option">🧸 Enfant / jeune en difficulté</button>
+                    <button data-social="personne_agee_handicap" class="btn-option">👵 Personne âgée ou handicapée</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="fiche-section">
+        <div class="fiche-header">
+            <h2>
+                📋 Fiche formateur
+                <span id="combo-badge" class="badge-combi">sélection active</span>
+            </h2>
+        </div>
+        <div class="zone-texte">
+            <div id="dynamic-content" class="contenu-fiche">
+                <p style="opacity:0.7; font-size:1.05rem;">Sélectionnez une combinaison besoin + situation sociale pour afficher les enjeux et les attentes détaillées.</p>
+            </div>
+        </div>
+    </div>
+    <div class="footer-note">
+        ✨ 12 profils complets — ressources pour adapter sa posture, ses supports et sa progression.
+    </div>
+</div>
+
+<script>
+    // ---------- CONTENUS TRÈS ENRICHIS (12 combinaisons) ----------
+    // Chaque fiche contient : enjeux (texte enrichi + puces possibles) et attentes structurées.
+    // On utilise du HTML directement dans les chaînes pour plus de lisibilité.
+    
+    const fichesData = {
+        alphabetisation: {
+            exile_migrant: {
+                enjeux: `<strong>🔍 Enjeux spécifiques :</strong> L’apprenant·e exilé·e ou migrant·e n’a souvent jamais été scolarisé·e ou a connu une scolarité très fragmentée. Il·elle doit déchiffrer un nouveau système d’écriture, tout en gérant un traumatisme migratoire. L’urgence administrative (titre de séjour, accès au logement) crée une pression forte. L’apprentissage demande de la confiance et des repères culturels.<br>
+                <strong>⚡ Points critiques :</strong>
+                <ul class="liste-perso"><li>Analphabétisme complet ou faible maîtrise de l’écrit</li><li>Méconnaissance des codes scolaires (tenir un crayon, sens de lecture)</li><li>Isolement linguistique et faible exposition au français écrit</li></ul>`,
+                attentes: `<strong>✅ Attentes pour le formateur :</strong>
+                <ul class="liste-perso"><li>Adopter une pédagogie explicite et multisensorielle (images, gestes, manipulation)</li><li>Travailler sur les documents de la vie réelle (formulaires, calendrier, affiches)</li><li>Instaurer un rituel rassurant et valoriser chaque micro-progrès</li><li>Collaborer avec des interprètes ou médiateurs culturels si besoin</li><li>Intégrer des activités orales préalables à l'écrit (phonologie, vocabulaire de survie)</li></ul>`
+            },
+            grande_precarite: {
+                enjeux: `<strong>🔍 Enjeux :</strong> Précarité matérielle, habitat instable, fatigue chronique, alimentation irrégulière. L’alphabétisation devient un outil de réinsertion sociale et professionnelle. Risque d’absentéisme et de décrochage. Faible accès au numérique, aux fournitures.<br>
+                <strong>⚡ Difficultés observées :</strong> manque de continuité pédagogique, honte de ne pas savoir lire/écrire, sentiment d’illégitimité.`,
+                attentes: `<strong>✅ Attentes formateur :</strong>
+                <ul class="liste-perso"><li>Ateliers très courts (1h maximum) mais réguliers</li><li>Supports gratuits, photocopiables, robustes</li><li>Lien direct avec les acteurs sociaux (CCAS, épicerie solidaire)</li><li>Aborder des thèmes utilitaires : santé, budget, droits, transports</li><li>Encourager le « savoir-dire » avant le « savoir-écrire », valorisation des compétences orales</li></ul>`
+            },
+            enfant_jeune_difficulte: {
+                enjeux: `<strong>🔍 Enjeux :</strong> Jeunes en décrochage scolaire, troubles « dys » ou déficits attentionnels, manque d’estime de soi. L’entrée dans l’écrit est souvent associée à l’échec. Besoin de restaurer le désir d’apprendre.<br>
+                <strong>⚡ Freins :</strong> anxiété de performance, comportements d’évitement, fragilité socio-familiale.`,
+                attentes: `<strong>✅ Attentes formateur :</strong>
+                <ul class="liste-perso"><li>Pédagogie ludique et différenciée (jeux de lettres, escape game pédagogique)</li><li>Utiliser le multisensoriel : pâte à modeler, lettres rugueuses, applications adaptées</li><li>Impliquer la famille ou l’éducateur référent</li><li>Travailler en petits groupes ou en individuel pour lever les blocages</li><li>Célébrer les réussites avec un système de défis personnalisés</li></ul>`
+            },
+            personne_agee_handicap: {
+                enjeux: `<strong>🔍 Enjeux :</strong> Personnes vieillissantes ou avec handicap moteur/sensoriel/cognitif. Maintien de l’autonomie, lutte contre l’isolement. Besoin de ralentir le rythme et d’adapter l’environnement.<br>
+                <strong>⚡ Contraintes :</strong> troubles de la mémoire, fatigabilité rapide, problèmes de vision (gros caractères).`,
+                attentes: `<strong>✅ Attentes formateur :</strong>
+                <ul class="liste-perso"><li>Matériel à forte lisibilité (police ≥ 16px, contrastes élevés)</li><li>Séances courtes (45 min) avec pauses fréquentes</li><li>Répétitions et ancrage dans la vie quotidienne (listes de courses, consignes médicales)</li><li>Utiliser des supports mnémotechniques (photos, chansons)</li><li>Créer un climat de confiance et éviter toute infantilisation</li></ul>`
+            }
+        },
+        fle: {
+            exile_migrant: {
+                enjeux: `<strong>🔍 Enjeux FLE – exil/migration :</strong> Apprentissage accéléré pour communiquer dans des situations urgentes (santé, travail, démarches). Choc linguistique et culturel. Possibilité de non-maîtrise du système latin.<br>
+                <strong>⚡ Spécificités :</strong> niveau hétérogène, forte motivation mais fatigue psychologique. Besoin de reconnaissance de la langue et culture d’origine.`,
+                attentes: `<strong>✅ Attentes formateur :</strong>
+                <ul class="liste-perso"><li>Approche actionnelle centrée sur les tâches du quotidien (remplir un CV, prendre RDV)</li><li>Documents authentiques adaptés (dépliants, SMS, affichage public)</li><li>Posture interculturelle, valoriser le plurilinguisme</li><li>Travailler la phonétique pour faciliter la compréhension orale</li><li>Proposer des sorties terrain (marché, médiathèque) pour ancrer la langue</li></ul>`
+            },
+            grande_precarite: {
+                enjeux: `<strong>🔍 FLE & précarité :</strong> Public migrant ou français en grande difficulté sociale, souvent sans domicile fixe. Difficultés matérielles pour participer. Priorité : survie langagière et insertion.<br>
+                <strong>⚡ Obstacles :</strong> faible assiduité, stress post-traumatique, peu d’accès au numérique.`,
+                attentes: `<strong>✅ Attentes formateur :</strong>
+                <ul class="liste-perso"><li>Adapter les horaires et lieux (groupes mobiles, accueil inconditionnel)</li><li>Thèmes pragmatiques : se présenter, demander de l’aide, comprendre une ordonnance</li><li>Travailler en binôme avec un travailleur social</li><li>Utiliser des supports très visuels et peu textuels</li><li>Donner des «kits langue» (lexiques illustrés, flashcards)</li></ul>`
+            },
+            enfant_jeune_difficulte: {
+                enjeux: `<strong>🔍 FLE & jeunes en difficulté :</strong> Nouvel arrivant allophone avec parfois une scolarisation antérieure chaotique. Difficultés d’adaptation scolaire, rejet par les pairs.<br>
+                <strong>⚡ Facteurs :</strong> stress de l’exil, faible estime de soi, barrière linguistique forte.`,
+                attentes: `<strong>✅ Attentes formateur :</strong>
+                <ul class="liste-perso"><li>Enseignement explicite du lexique et des structures via des projets motivants (créer une BD, une webradio)</li><li>Collaboration étroite avec les enseignants de classe ordinaire et les psychologues scolaires</li><li>Proposer des moments de médiation par les pairs (tutorat)</li><li>Valoriser la langue maternelle comme tremplin</li><li>Rituels de classe sécurisants et feedback positifs réguliers</li></ul>`
+            },
+            personne_agee_handicap: {
+                enjeux: `<strong>🔍 FLE – personne âgée ou handicapée :</strong> Apprentissage lent mais volonté de lien social. Troubles sensoriels (vue, ouïe) ou cognitifs légers. Risque de découragement.<br>
+                <strong>⚡ Enjeux spécifiques :</strong> Mémoire à court terme altérée, difficultés de prononciation, peur du jugement.`,
+                attentes: `<strong>✅ Attentes formateur :</strong>
+                <ul class="liste-perso"><li>Rythme très modulable, répétitions espacées, reformulations</li><li>Supports à gros caractères, audio avec débit lent</li><li>Sujets liés à la vie quotidienne, à la santé, aux loisirs accessibles</li><li>Encourager les conversations à partir de photos personnelles, d’objets familiers</li><li>Patience et empathie, éviter la surcharge cognitive</li></ul>`
+            }
+        },
+        illettrisme: {
+            exile_migrant: {
+                enjeux: `<strong>🔍 Illettrisme & migration :</strong> Personne scolarisée dans son pays d’origine mais non lectrice en français. Transfert partiel des compétences, confusion entre systèmes d’écriture.<br>
+                <strong>⚡ Problématiques :</strong> honte de « ne pas savoir lire » alors qu’on a été instruit, difficultés à discriminer les sons du français.`,
+                attentes: `<strong>✅ Attentes formateur :</strong>
+                <ul class="liste-perso"><li>Remobiliser les savoirs antérieurs via des analogies et la métacognition</li><li>Travailler le décodage phonético-graphique avec des supports très progressifs</li><li>Proposer des activités de compréhension de textes courts (affiches, consignes)</li><li>Dédramatiser l’erreur et valoriser la prise de risque</li><li>Intégrer l’écriture fonctionnelle (adresse, date, signature)</li></ul>`
+            },
+            grande_precarite: {
+                enjeux: `<strong>🔍 Illettrisme & précarité :</strong> Personnes françaises ou étrangères non lectrices, souvent avec un parcours de vie marqué par l’échec scolaire. Lien étroit entre précarité et faible maîtrise de l’écrit.<br>
+                <strong>⚡ Freins :</strong> faible estime de soi, stratégies d’évitement, absentéisme.`,
+                attentes: `<strong>✅ Attentes formateur :</strong>
+                <ul class="liste-perso"><li>Approche très concrète : lire une facture, écrire un message court, comprendre un planning</li><li>Sessions courtes mais intensives (2h max) avec des objectifs immédiats</li><li>Mettre en place un suivi individualisé (coaching socio-linguistique)</li><li>Utiliser des outils numériques simples (enregistrements vocaux, SMS)</li><li>Favoriser les groupes de parole pour lever les blocages affectifs</li></ul>`
+            },
+            enfant_jeune_difficulte: {
+                enjeux: `<strong>🔍 Illettrisme chez les jeunes :</strong> Adolescents sortis du système sans maîtriser la lecture/écriture, souvent cumul de handicaps sociaux et cognitifs. Décrochage scolaire total.<br>
+                <strong>⚡ Conséquences :</strong> exclusion précoce, marginalisation, faible employabilité.`,
+                attentes: `<strong>✅ Attentes formateur :</strong>
+                <ul class="liste-perso"><li>Remédiation intensive en très petit groupe (max 4 apprenants)</li><li>Utiliser des méthodes syllabiques structurées et des supports engageants (jeux vidéo éducatifs, mangas)</li><li>Travailler l’estime de soi via des projets valorisants (écriture d’un slam, journal de bord)</li><li>Collaboration avec la Mission Locale, les éducateurs et la famille</li><li>Proposer des stages de remise à niveau pendant les vacances</li></ul>`
+            },
+            personne_agee_handicap: {
+                enjeux: `<strong>🔍 Illettrisme & vieillissement/handicap :</strong> Personnes âgées non lectrices, parfois avec début de déclin cognitif. Sentiment de honte ancré, grande vulnérabilité.<br>
+                <strong>⚡ Particularités :</strong> lenteur, faible mémoire de travail, besoin de supports très simples.`,
+                attentes: `<strong>✅ Attentes formateur :</strong>
+                <ul class="liste-perso"><li>Rythme extrêmement progressif, répétitions ritualisées</li><li>Utiliser des documents adaptés (gros caractères, pictogrammes)</li><li>Travailler en binôme avec un ergothérapeute ou psychologue si possible</li><li>Aborder des textes courts et utiles (consignes médicales, recettes simples)</li><li>Instaurer une relation chaleureuse, éviter toute pression temporelle</li></ul>`
+            }
+        }
+    };
+
+    // État actuel
+    let besoinActuel = "alphabetisation";
+    let socialActuel = "exile_migrant";
+
+    // Éléments DOM
+    const besoinBtns = document.querySelectorAll('[data-besoin]');
+    const socialBtns = document.querySelectorAll('[data-social]');
+    const dynamicDiv = document.getElementById('dynamic-content');
+    const comboBadge = document.getElementById('combo-badge');
+
+    function updateActiveButtons() {
+        besoinBtns.forEach(btn => {
+            if (btn.dataset.besoin === besoinActuel) btn.classList.add('active');
+            else btn.classList.remove('active');
+        });
+        socialBtns.forEach(btn => {
+            if (btn.dataset.social === socialActuel) btn.classList.add('active');
+            else btn.classList.remove('active');
+        });
+    }
+
+    // Fonction pour générer la fiche enrichie avec mise en page resserrée mais lisible
+    function genererFiche() {
+        const besoinData = fichesData[besoinActuel];
+        if (!besoinData) {
+            dynamicDiv.innerHTML = `<p>⚠️ Données indisponibles pour ce besoin.</p>`;
+            return;
+        }
+        const contenu = besoinData[socialActuel];
+        if (!contenu) {
+            dynamicDiv.innerHTML = `<p>⚠️ Combinaison inexistante, veuillez choisir une autre situation sociale.</p>`;
+            return;
+        }
+
+        // libellés pour affichage
+        const libBesoin = {
+            alphabetisation: "Alphabétisation",
+            fle: "FLE (Français Langue Étrangère)",
+            illettrisme: "Illettrisme"
+        }[besoinActuel];
+        const libSocial = {
+            exile_migrant: "Exilé·e ou migrant·e",
+            grande_precarite: "Grande précarité",
+            enfant_jeune_difficulte: "Enfant ou jeune en difficulté",
+            personne_agee_handicap: "Personne âgée ou handicapée"
+        }[socialActuel];
+
+        // Construction finale avec enjeux et attentes enrichis (déjà formatés en HTML)
+        const htmlFinal = `
+            <div class="bloc-context">
+                <span style="font-weight:700;">📌 Contexte :</span> <strong>${libBesoin}</strong> · <strong>${libSocial}</strong>
+            </div>
+            <div class="enjeux-box">
+                <div class="sous-titre">🎯 ENJEUX PRINCIPAUX</div>
+                ${contenu.enjeux}
+            </div>
+            <div class="attentes-box">
+                <div class="sous-titre">✨ ATTENTES POUR LE FORMATEUR</div>
+                ${contenu.attentes}
+            </div>
+            <div style="margin-top: 1rem; font-size:0.85rem; background:#F1F7FC; padding:0.6rem; border-radius:12px; text-align:center;">
+                💡 <em>Adapter les supports, le rythme et la relation pédagogique aux vulnérabilités spécifiques.</em>
+            </div>
+        `;
+        dynamicDiv.innerHTML = htmlFinal;
+
+        // Badge
+        let besoinShort = (besoinActuel === "alphabetisation") ? "Alphab." : (besoinActuel === "fle" ? "FLE" : "Illettr.");
+        let socialShort = "";
+        if (socialActuel === "exile_migrant") socialShort = "Exilé/migrant";
+        else if (socialActuel === "grande_precarite") socialShort = "Précarité";
+        else if (socialActuel === "enfant_jeune_difficulte") socialShort = "Jeune en diff.";
+        else socialShort = "Âgé/handicap";
+        comboBadge.textContent = `${besoinShort} · ${socialShort}`;
+    }
+
+    // Gestionnaires d'événements
+    besoinBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const newBesoin = btn.dataset.besoin;
+            if (fichesData[newBesoin]) {
+                besoinActuel = newBesoin;
+                // Vérifier si la situation sociale actuelle existe dans le nouveau besoin
+                if (!fichesData[besoinActuel][socialActuel]) {
+                    // fallback sur la première situation sociale disponible
+                    const socialsDispo = Object.keys(fichesData[besoinActuel]);
+                    if (socialsDispo.length) socialActuel = socialsDispo[0];
+                }
+                updateActiveButtons();
+                genererFiche();
+            }
+        });
+    });
+
+    socialBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const newSocial = btn.dataset.social;
+            if (fichesData[besoinActuel] && fichesData[besoinActuel][newSocial]) {
+                socialActuel = newSocial;
+                updateActiveButtons();
+                genererFiche();
+            } else {
+                // sécurité : si la combinaison n'existe pas, on alerte mais on ne change pas
+                console.warn("Combinaison introuvable", besoinActuel, newSocial);
+                // on peut essayer de basculer sur une combinaison existante si nécessaire
+                const existants = Object.keys(fichesData[besoinActuel] || {});
+                if (existants.includes(newSocial)) {
+                    socialActuel = newSocial;
+                    updateActiveButtons();
+                    genererFiche();
+                }
+            }
+        });
+    });
+
+    // Initialisation
+    function init() {
+        besoinActuel = "alphabetisation";
+        socialActuel = "exile_migrant";
+        updateActiveButtons();
+        genererFiche();
+    }
+    init();
+</script>
+</body>
+</html>
